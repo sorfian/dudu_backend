@@ -75,7 +75,7 @@ class UserController extends Controller
                 'description' => $request->description ?? null,
                 'is_joined' => $request->is_joined ?? null,
                 'is_active' => $request->is_active ?? null,
-                'role' => $request->role ?? null,
+                'role' => $request->role,
             ]);
 
             $user = User::where('email', $request->email)->first();
