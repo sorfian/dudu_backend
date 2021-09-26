@@ -8,13 +8,13 @@
 		<div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
 			<!--begin::Logo-->
 			<a href="{{ route('dashboard') }}" class="mb-12">
-				<img alt="Logo" src="{{ asset('metronic/src/assets/media/logos/logo-1.svg') }}" class="h-40px" />
+				<img alt="Logo" src="{{ asset('metronic/src/assets/media/logos/logo.png') }}" class="h-80px" />
 			</a>
 			<!--end::Logo-->
 			<!--begin::Wrapper-->
 			<div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
 				<!--begin::Form-->
-				<form method="POST"  class="form w-100" novalidate="novalidate" id="kt_sign_in_form" action="{{ route('login') }}">
+				<form method="POST" class="form w-100" novalidate="novalidate" action="{{ route('login') }}">
 					@csrf
 					<!--begin::Heading-->
 					<div class="text-center mb-10">
@@ -33,7 +33,7 @@
 						<label class="form-label fs-6 fw-bolder text-dark">Email</label>
 						<!--end::Label-->
 						<!--begin::Input-->
-						<input class="form-control form-control-lg form-control-solid" type="text" name="email" autocomplete="off" :value="old('email')" required autofocus />
+						<input class="form-control form-control-lg form-control-solid" type="text" id="email" name="email" autocomplete="off" :value="old('email')" required autofocus />
 						<!--end::Input-->
 					</div>
 					<!--end::Input group-->
@@ -45,12 +45,12 @@
 							<label class="form-label fw-bolder text-dark fs-6 mb-0">Password</label>
 							<!--end::Label-->
 							<!--begin::Link-->
-							<a href="../../demo9/dist/authentication/flows/basic/password-reset.html" class="link-primary fs-6 fw-bolder">Forgot Password ?</a>
+							<a href="{{ route('password.request') }}" class="link-primary fs-6 fw-bolder">Forgot Password ?</a>
 							<!--end::Link-->
 						</div>
 						<!--end::Wrapper-->
 						<!--begin::Input-->
-						<input class="form-control form-control-lg form-control-solid" type="password" name="password" required autocomplete="current-password" />
+						<input class="form-control form-control-lg form-control-solid" type="password" id="password" name="password" required autocomplete="current-password" />
 						<!--end::Input-->
 					</div>
 					<!--end::Input group-->
