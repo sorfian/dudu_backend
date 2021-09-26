@@ -44,10 +44,10 @@
 					</div>
 					<!--end::Logo-->
 					<!--begin::Nav-->
-					@include('partials.sidebar')
+					@include('layouts.partials.sidebar')
 					<!--end::Nav-->
 					<!--begin::Footer-->
-					@include('partials.sidebar-footer')
+					@include('layouts.partials.sidebar-footer')
 					<!--end::Footer-->
 				</div>
 				<!--end::Aside-->
@@ -81,7 +81,7 @@
 					</div>
 					<!--end::Header tablet and mobile-->
 					<!--begin::Header-->
-					@include('partials.header')
+					@include('layouts.partials.header')
 					<!--end::Header-->
 					<!--begin::Content-->
 					@yield('content')
