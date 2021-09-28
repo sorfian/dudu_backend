@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TalentController;
+use App\Http\Controllers\UserTransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +20,7 @@ use App\Http\Controllers\DashboardController;
 // Homepage
 Route::get('/', function () {
     return redirect()->route('dashboard');
-});
+})->name('home');
 
 // Dashboard
 Route::prefix('dashboard')
@@ -25,12 +28,15 @@ Route::prefix('dashboard')
     ->group(function() {
         Route::get('/', [DashboardController::class, 'index'])
             ->name('dashboard');
-        Route::resource('food', FoodController::class);
+        Route::resource('marketplace/talents', TalentController::class);
+        Route::get('users/talents', [UserController::class, 'indexOfTalents'])->name('users.talents');
+        Route::get('users/partners', [UserController::class, 'indexOfPartners'])->name('users.partners');
+        Route::get('users/new-requests', [UserController::class, 'newAccountRequest'])->name('users.new-requests');
         Route::resource('users', UserController::class);
 
-        Route::get('transactions/{id}/status/{status}', [TransactionController::class, 'changeStatus'])
-            ->name('transactions.changeStatus');
-        Route::resource('transactions', TransactionController::class);
+        // Route::get('transactions/{id}/status/{status}', [TransactionController::class, 'changeStatus'])
+        //     ->name('transactions.changeStatus');
+        Route::resource('transactions', UserTransactionController::class);
     });
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

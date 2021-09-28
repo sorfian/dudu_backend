@@ -14,13 +14,15 @@ class Talent extends Model
     protected $fillable = [
         'user_id',
         'type',
+        'category',
+        'rate',
         'description',
         'price',
         'picture_path'
     ];
 
     public function user(){
-        return $this->hasOne(User::class, 'id', 'user_id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function userTransactions(){

@@ -44,9 +44,18 @@ class User extends Authenticatable
         'description',
         'is_joined',
         'is_active',
-        'role'
+        'role',
+        'profile_photo_path',
 
     ];
+
+    public function talent(){
+        return $this->hasMany(Talent::class, 'user_id', 'id');
+    }
+
+    public function userTransactions(){
+        return $this->hasMany(UserTransaction::class, 'user_id', 'id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

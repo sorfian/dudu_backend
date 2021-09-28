@@ -3,7 +3,7 @@
 <html lang="en">
 	<!--begin::Head-->
 	<head><base href="">
-		<title>Metronic - the world's #1 selling Bootstrap Admin Theme Ecosystem for HTML, Vue, React, Angular &amp; Laravel by Keenthemes</title>
+		<title>Dudu - Indonesian Cameo</title>
 		<meta name="description" content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
 		<meta name="keywords" content="Metronic, bootstrap, bootstrap 5, Angular, VueJs, React, Laravel, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,6 +20,7 @@
 		<!--end::Fonts-->
 		<!--begin::Page Vendor Stylesheets(used by this page)-->
 		<link href="{{ asset('metronic/src/assets/plugins/custom/leaflet/leaflet.bundle.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('metronic/src/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 		<!--end::Page Vendor Stylesheets-->
 		<!--begin::Global Stylesheets Bundle(used by all pages)-->
 		<link href="{{ asset('metronic/src/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
@@ -39,7 +40,7 @@
 					<!--begin::Logo-->
 					<div class="aside-logo flex-column-auto pt-10 pt-lg-20" id="kt_aside_logo">
 						<a href="{{ route('dashboard') }}">
-							<img alt="Logo" src="{{ asset('metronic/src/assets/media/logos/logo.png') }}" class="h-60px" />
+							<img alt="Logo" src="{{ asset('metronic/src/assets/media/logos/logo.png') }}" class="h-30px" />
 						</a>
 					</div>
 					<!--end::Logo-->
@@ -59,8 +60,8 @@
 						<div class="container d-flex flex-stack">
 							<!--begin::Mobile logo-->
 							<div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
-								<a href="../../demo9/dist/index.html">
-									<img alt="Logo" src="assets/media/logos/logo-demo9.svg" class="h-35px" />
+								<a href="{{ route('dashboard') }}">
+									<img alt="Logo" src="{{ asset('metronic/src/assets/media/logos/logo.png') }}" class="h-35px" />
 								</a>
 							</div>
 							<!--end::Mobile logo-->
@@ -2445,6 +2446,10 @@
 		<script src="{{ asset('metronic/src/assets/js/custom/modals/create-app.js') }}"></script>
 		<script src="{{ asset('metronic/src/assets/js/custom/modals/upgrade-plan.js') }}"></script>
 		<!--end::Page Custom Javascript-->
+		<!--begin::Page Vendors Javascript(used by this page)-->
+		<script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
+		<!--end::Page Vendors Javascript-->
+		@stack('scripts')
 		<!--end::Javascript-->
 	</body>
 	<!--end::Body-->

@@ -6,8 +6,8 @@
         <div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-lg-20 py-3 py-lg-0 me-3">
             <!--begin::Heading-->
             <h1 class="d-flex flex-column text-dark fw-bolder my-1">
-                <span class="text-white fs-1">Dashboard</span>
-                <small class="text-gray-600 fs-6 fw-normal pt-2">Create a store with #YDR-124-346 code</small>
+                <span class="text-white fs-1">@yield('title')</span>
+                <small class="text-gray-600 fs-6 fw-normal pt-2">@yield('subtitle')</small>
             </h1>
             <!--end::Heading-->
         </div>
@@ -757,7 +757,7 @@
                     <!--begin::Menu-->
                     <div class="menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px" data-kt-menu="true">
                         <!--begin::Heading-->
-                        <div class="d-flex flex-column bgi-no-repeat rounded-top" style="background-image:url('assets/media/misc/pattern-1.jpg')">
+                        <div class="d-flex flex-column bgi-no-repeat rounded-top" style="background-image:url('{{ asset('metronic/src/assets/media/misc/pattern-1.jpg') }}')">
                             <!--begin::Title-->
                             <h3 class="text-white fw-bold px-9 mt-10 mb-6">Notifications
                             <span class="fs-8 opacity-75 ps-3">24 reports</span></h3>
@@ -1041,7 +1041,7 @@
                                     <!--end::Section-->
                                     <!--begin::Illustration-->
                                     <div class="text-center px-4">
-                                        <img class="mw-100 mh-200px" alt="image" src="assets/media/illustrations/sigma-1/1.png" />
+                                        <img class="mw-100 mh-200px" alt="image" src="{{ asset('metronic/src/assets/media/illustrations/sigma-1/1.png') }}" />
                                     </div>
                                     <!--end::Illustration-->
                                 </div>
@@ -1296,14 +1296,14 @@
                             <div class="menu-content d-flex align-items-center px-3">
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-50px me-5">
-                                    <img alt="Logo" src="assets/media/avatars/150-26.jpg" />
+                                    <img alt="Logo" src="{{ asset('storage/'. Auth::user()->profile_photo_path) }}" />
                                 </div>
                                 <!--end::Avatar-->
                                 <!--begin::Username-->
                                 <div class="d-flex flex-column">
-                                    <div class="fw-bolder d-flex align-items-center fs-5">Max Smith
+                                    <div class="fw-bolder d-flex align-items-center fs-5">{{ Auth::user()->name }}
                                     <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Pro</span></div>
-                                    <a href="#" class="fw-bold text-muted text-hover-primary fs-7">max@kt.com</a>
+                                    <a href="{{ route('users.show', Auth::user()->id) }}" class="fw-bold text-muted text-hover-primary fs-7">{{ Auth::user()->email }}</a>
                                 </div>
                                 <!--end::Username-->
                             </div>
