@@ -134,7 +134,7 @@
                         <!--end::Svg Icon-->Add User to Marketplace</button> --}}
                         <!--end::Export-->
                         <!--begin::Add customer-->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_customer_all">Admit All</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#">Admit All</button>
                         <!--end::Add customer-->
                     </div>
                     <!--end::Toolbar-->

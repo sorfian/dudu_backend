@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UserTransaction;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\UserTransaction;
 
 class UserTransactionController extends Controller
 {
@@ -15,9 +16,11 @@ class UserTransactionController extends Controller
     public function index()
     {
         $userTransactions = UserTransaction::with('user')->get();
+        $newUser = User::where('is_active', 0)->get();
 
         return view('transactions.user-transactions', [
             'transactions' => $userTransactions,
+            'newuser' => $newUser,
         ]);
     }
 

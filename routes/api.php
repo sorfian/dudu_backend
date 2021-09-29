@@ -3,7 +3,6 @@
 use App\Http\Controllers\API\TalentController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\UserTransactionController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*

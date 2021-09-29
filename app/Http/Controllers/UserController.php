@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -17,9 +18,11 @@ class UserController extends Controller
     public function index()
     {
         $user = User::all();
+        $newUser = User::where('is_active', 0)->get();
 
         return view('users.index', [
-            'user' => $user
+            'user' => $user,
+            'newuser' => $newUser,
         ]);
     }
 
@@ -86,8 +89,11 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        $newUser = User::where('is_active', 0)->get();
+
         return view('users.edit',[
-            'item' => $user
+            'item' => $user,
+            'newuser' => $newUser,
         ]);
     }
 
@@ -99,8 +105,11 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $newUser = User::where('is_active', 0)->get();
+
         return view('users.edit',[
-            'item' => $user
+            'item' => $user,
+            'newuser' => $newUser,
         ]);
     }
 
@@ -142,26 +151,32 @@ class UserController extends Controller
     public function indexOfTalents()
     {
         $user = User::where('role', 'TALENT')->get();
+        $newUser = User::where('is_active', 0)->get();
 
         return view('users.index-talents', [
-            'user' => $user
+            'user' => $user,
+            'newuser' => $newUser,
         ]);
     }
     public function indexOfPartners()
     {
         $user = User::where('role', 'PARTNER')->get();
+        $newUser = User::where('is_active', 0)->get();
 
         return view('users.index-partners', [
-            'user' => $user
+            'user' => $user,
+            'newuser' => $newUser,
         ]);
     }
 
     public function newAccountRequest()
     {
         $user = User::where('is_active', 0)->get();
+        $newUser = User::where('is_active', 0)->get();
 
         return view('users.index-new-request', [
-            'user' => $user
+            'user' => $user,
+            'newuser' => $newUser,
         ]);
     }
 }

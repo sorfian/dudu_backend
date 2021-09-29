@@ -24,10 +24,13 @@ class TalentController extends Controller
 
         $talents = Talent::with('user')->get();
         $users = User::all();
+        $newUser = User::where('is_active', 0)->get();
+
 
         return view('talents.index', [
             'talents' => $talents,
             'users' => $users,
+            'newuser' => $newUser,
         ]);
     }
 
@@ -66,8 +69,11 @@ class TalentController extends Controller
      */
     public function show(Talent $talent)
     {
+        $newUser = User::where('is_active', 0)->get();
+
         return view('talents.edit',[
-            'item' => $talent
+            'item' => $talent,
+            'newuser' => $newUser,
         ]);
     }
 
@@ -79,8 +85,11 @@ class TalentController extends Controller
      */
     public function edit(Talent $talent)
     {
+        $newUser = User::where('is_active', 0)->get();
+
         return view('talents.edit',[
-            'item' => $talent
+            'item' => $talent,
+            'newuser' => $newUser,
         ]);
     }
 

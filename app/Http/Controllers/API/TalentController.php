@@ -39,7 +39,8 @@ class TalentController extends Controller
             
         } 
         
-        $talent = Talent::query();
+        $talent = Talent::with(['user']);
+        // $talent = Talent::query();
 
         if ($name) {
             $talent->where('name', 'like', '%' . $name . '%');
