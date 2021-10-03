@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\UserTransaction;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
+use App\Models\Talent;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 Xendit::setApiKey('xnd_development_6PaoSfikDvNDQqnXGGn0wZidfx8AsHMUhxCXQZswt8drq2XNdq3LpHJ3SCxAiTA');
@@ -96,6 +98,7 @@ class UserTransactionController extends Controller
         // Config::$is3ds = config('services.midtrans.is3ds');
 
         $transaction = UserTransaction::with(['talent','user'])->find($transaction->id);
+        $transaction['talent']['user_id'] = User::where('id', $transaction['talent']['user_id'])->first();
             return ResponseFormatter::success($transaction,'Transaksi berhasil');
 
 
