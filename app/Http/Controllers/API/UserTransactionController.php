@@ -39,7 +39,25 @@ class UserTransactionController extends Controller
             
         } 
         
-        $userTransaction = UserTransaction::with(['talent', 'user', 'order'])->where('user_id', Auth::user()->id);
+        $userTransaction = UserTransaction::with(['talent', 'user', 'order'])->where('user_id', Auth::user()->id)->get();
+        foreach ($userTransaction as $transaction) {
+            $user_id = $transaction->talent['user_id'];
+            $user = User::where('id', $user_id)->first();
+            // $transaction['talent']['name'] = $user['name'];
+            // array_map($transaction->talent, $user['name']);
+            // $array[] = $user['name'];
+            $nameKey = [
+                'talent_name' => $user['name'],
+                'talent_email' => $user['email'],
+                'data' => $transaction,
+            ];
+            $array[] = $nameKey;
+        }
+        // return $array;
+        // // return $userTransaction;
+        // $user = User::where('id', $userTransaction['talent']['user_id']);
+        // // $userTransaction['talent']['talent_name'] = $user->name;
+        // // $userTransaction['talent']['talent_email'] = $user->email;
 
         if ($talent_id) {
             $userTransaction->where('talent_id', $talent_id);
@@ -49,7 +67,7 @@ class UserTransactionController extends Controller
         }
 
         return ResponseFormatter::success(
-            $userTransaction->paginate($limit),
+            $array,
             'Data list transaksi user berhasil diambil'
         );
         

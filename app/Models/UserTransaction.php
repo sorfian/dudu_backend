@@ -31,7 +31,7 @@ class UserTransaction extends Model
     }
 
     public function talent(){
-        return $this->hasOne(Talent::class, 'id', 'talent_id');
+        return $this->belongsTo(Talent::class, 'talent_id', 'id');
     }
 
     public function order(){
