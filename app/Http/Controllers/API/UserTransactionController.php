@@ -98,7 +98,9 @@ class UserTransactionController extends Controller
         // Config::$is3ds = config('services.midtrans.is3ds');
 
         $transaction = UserTransaction::with(['talent','user'])->find($transaction->id);
-        $transaction['talent']['user_id'] = User::where('id', $transaction['talent']['user_id'])->first();
+        $user = User::where('id', $transaction['talent']['user_id'])->first();
+        $transaction['talent']['talent_name'] = $user->name;
+        $transaction['talent']['talent_email'] = $user->email;
             return ResponseFormatter::success($transaction,'Transaksi berhasil');
 
 
