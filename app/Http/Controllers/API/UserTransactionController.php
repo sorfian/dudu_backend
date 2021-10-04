@@ -114,7 +114,7 @@ class UserTransactionController extends Controller
                 'customer' => [
                     'given_name' => Auth::user()->name,
                     'email' => Auth::user()->email,
-                    'mobile_number' => Auth::user()->phone_number,
+                    // 'mobile_number' => Auth::user()->phone_number,
                 ],
                 'customer_notification_preference' => [
                     'invoice_created' => ["whatsapp", "sms", "email"],
