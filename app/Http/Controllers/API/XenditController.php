@@ -10,8 +10,8 @@ class XenditController extends Controller
 {
     public function callback(Request $request)
     {
-        $externalId = 'invoice_123124123';
-        $xenditId = '579c8d61f23fa4ca35e52da4';
+        $externalId = $request->external_id;
+        $xenditId = $request->id;
         $paymentMethod = $request->payment_method;
         $status = $request->status;
         $amount = $request->amount;
