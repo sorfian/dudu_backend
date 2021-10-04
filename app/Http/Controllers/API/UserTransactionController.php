@@ -85,7 +85,7 @@ class UserTransactionController extends Controller
             'talent_id' => $request->talent_id,
             'user_id' => $request->user_id,
             'total' => $request->total,
-            'external_id' => $invoiceNumber,
+            'external_id' => "abcd",
             'status' => $request->status,
             'name' => $request->name,
             'moment' => $request->moment,
