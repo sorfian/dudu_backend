@@ -111,17 +111,17 @@ class UserTransactionController extends Controller
                 'payer_email' => Auth::user()->email,
                 'description' => $request->moment,
                 'amount' => $request->total,
-                'customer' => [
-                    'given_name' => Auth::user()->name,
-                    'email' => Auth::user()->email,
-                    'mobile_number' => Auth::user()->phone_number,
-                ],
-                'customer_notification_preference' => [
-                    'invoice_created' => ["whatsapp", "sms", "email"],
-                    'invoice_reminder' => ["whatsapp", "sms", "email"],
-                    'invoice_paid' => ["whatsapp", "sms", "email"],
-                    'invoice_expired' => ["whatsapp", "sms", "email"]
-                ],
+                // 'customer' => [
+                //     'given_name' => Auth::user()->name,
+                //     'email' => Auth::user()->email,
+                //     'mobile_number' => Auth::user()->phone_number,
+                // ],
+                // 'customer_notification_preference' => [
+                //     'invoice_created' => ["whatsapp", "sms", "email"],
+                //     'invoice_reminder' => ["whatsapp", "sms", "email"],
+                //     'invoice_paid' => ["whatsapp", "sms", "email"],
+                //     'invoice_expired' => ["whatsapp", "sms", "email"]
+                // ],
             ];
 
             
