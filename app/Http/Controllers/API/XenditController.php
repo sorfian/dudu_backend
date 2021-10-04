@@ -44,7 +44,7 @@ class XenditController extends Controller
                     'code' => 500,
                     'message' => $th,
                 ]
-            ]);
+            ], 500);
         }
         
     }
