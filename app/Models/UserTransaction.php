@@ -23,7 +23,9 @@ class UserTransaction extends Model
         'age',
         'occasion',
         'instruction',
-        'detail'
+        'detail',
+        'external_id',
+        'invoice_url',
     ];
 
     public function user(){
