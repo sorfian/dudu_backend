@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\TalentController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\UserTransactionController;
+use App\Http\Controllers\API\XenditController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,3 +32,4 @@ Route::post('login', [UserController::class, 'login']);
 Route::post('register', [UserController::class, 'register']);
 
 Route::get('talent', [TalentController::class, 'all']);
+Route::post('xendit/callback', [XenditController::class, 'callback']);
