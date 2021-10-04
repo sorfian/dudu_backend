@@ -78,11 +78,14 @@ class UserTransactionController extends Controller
             'occasion' => 'required|string',
             'instruction' => 'required|string',
         ]);
+        
+        $invoiceNumber = 'invoice_'.time();
 
         $transaction = UserTransaction::create([
             'talent_id' => $request->talent_id,
             'user_id' => $request->user_id,
             'total' => $request->total,
+            'external_id' => $invoiceNumber,
             'status' => $request->status,
             'name' => $request->name,
             'moment' => $request->moment,
@@ -101,23 +104,58 @@ class UserTransactionController extends Controller
         $user = User::where('id', $transaction['talent']['user_id'])->first();
         $transaction['talent']['talent_name'] = $user->name;
         $transaction['talent']['talent_email'] = $user->email;
-            return ResponseFormatter::success($transaction,'Transaksi berhasil');
+            // return ResponseFormatter::success($transaction,'Transaksi berhasil');
 
+            $params = [
+                'external_id' => $invoiceNumber,
+                'payer_email' => Auth::user()->email,
+                'description' => $request->moment,
+                'amount' => $request->total,
+                'customer' => [
+                    'given_name' => Auth::user()->name,
+                    'email' => Auth::user()->email,
+                    'mobile_number' => Auth::user()->phone_number,
+                ],
+                'customer_notification_preference' => [
+                    'invoice_created' => ["whatsapp", "sms", "email"],
+                    'invoice_reminder' => ["whatsapp", "sms", "email"],
+                    'invoice_paid' => ["whatsapp", "sms", "email"],
+                    'invoice_expired' => ["whatsapp", "sms", "email"]
+                ],
+            ];
 
-        $midtrans = array(
-            'transaction_details' => array(
-                'order_id' =>  $transaction->id,
-                'gross_amount' => (int) $transaction->total,
-            ),
-            'customer_details' => array(
-                'first_name'    => $transaction->user->name,
-                'email'         => $transaction->user->email
-            ),
-            'enabled_payments' => array('gopay','bank_transfer'),
-            'vtweb' => array()
-        );
+            
+
+        // $midtrans = array(
+        //     'transaction_details' => array(
+        //         'order_id' =>  $transaction->id,
+        //         'gross_amount' => (int) $transaction->total,
+        //     ),
+        //     'customer_details' => array(
+        //         'first_name'    => $transaction->user->name,
+        //         'email'         => $transaction->user->email
+        //     ),
+        //     'enabled_payments' => array('gopay','bank_transfer'),
+        //     'vtweb' => array()
+        // );
 
         try {
+            $createInvoice = \Xendit\Invoice::create($params);
+            // var_dump($createInvoice);
+
+            $id = $createInvoice['id'];
+            $invoice_url = $createInvoice['invoice_url'];
+            $status = $createInvoice['status'];
+            $amount = $createInvoice['amount'];
+
+            $transaction->invoice_number = $id;
+            $transaction->payment_url = $invoice_url;
+            $transaction->status = $status;
+            $transaction->total = $amount;
+            $transaction->save();
+
+            return ResponseFormatter::success($transaction,'Transaksi berhasil');
+
             // Ambil halaman payment midtrans
             // $paymentUrl = Snap::createTransaction($midtrans)->redirect_url;
 
