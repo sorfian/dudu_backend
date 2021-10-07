@@ -156,5 +156,42 @@ class UserTransactionController extends Controller
         }
     }
 
+    public function uploadVideo(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'external_id' => 'required|string',
+            'video_file' => 'nullable|file',
+            'video_thumbnail' => 'nullable|image|max:5000'
+        ]);
+
+        if ($validator->fails()) {
+            return ResponseFormatter::error([
+                'error' => $validator->errors()
+            ], 'Update photo fails', 401);
+        }
+
+        $transaction = UserTransaction::where('external_id', $request->external_id)->first();
+
+        try {
+            if ($request->file('video_file')) {
+                $videoFile = $request->video_file->store('assets/user', 'public');
+                $transaction->video_file = $videoFile;
+            }
+    
+            if ($request->file('video_thumbnail')) {
+                $videoThumbnail = $request->video_thumbnail->store('assets/user', 'public');
+                $transaction->video_thumbnail = $videoThumbnail;
+    
+            }
+    
+            $transaction->update();
+    
+            return ResponseFormatter::success([$videoFile, $videoThumbnail], 'File successfully uploaded');
+        } catch (Exception $e) {
+            return ResponseFormatter::error($e->getMessage(),'Upload video Gagal');
+        }
+        
+
+    }
+
     
 }
