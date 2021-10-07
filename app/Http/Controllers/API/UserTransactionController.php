@@ -78,8 +78,6 @@ class UserTransactionController extends Controller
             'moment' => 'required|string',
             'occasion' => 'required|string',
             'instruction' => 'required|string',
-            'video_file' => 'nullable|file',
-            'video_thumbnail' => 'nullable|image|max:5000'
         ]);
         
         $invoiceNumber = 'invoice_'.time();
@@ -123,16 +121,6 @@ class UserTransactionController extends Controller
 
 
         try {
-            if ($request->file('video_file')) {
-                $videoFile = $request->video_file->store('assets/user', 'public');
-                $transaction->video_file = $videoFile;
-            }
-    
-            if ($request->file('video_thumbnail')) {
-                $videoThumbnail = $request->video_thumbnail->store('assets/user', 'public');
-                $transaction->video_thumbnail = $videoThumbnail;
-    
-            }
 
             $createInvoice = \Xendit\Invoice::create($params);
             // var_dump($createInvoice);
