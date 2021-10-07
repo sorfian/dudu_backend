@@ -4,13 +4,14 @@ namespace App\Http\Controllers\API;
 
 use Exception;
 use Xendit\Xendit;
+use App\Models\User;
+use App\Models\Talent;
 use Illuminate\Http\Request;
 use App\Models\UserTransaction;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
-use App\Models\Talent;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 Xendit::setApiKey('xnd_development_6PaoSfikDvNDQqnXGGn0wZidfx8AsHMUhxCXQZswt8drq2XNdq3LpHJ3SCxAiTA');
 class UserTransactionController extends Controller
@@ -77,6 +78,8 @@ class UserTransactionController extends Controller
             'moment' => 'required|string',
             'occasion' => 'required|string',
             'instruction' => 'required|string',
+            'video_file' => 'nullable|file',
+            'video_thumbnail' => 'nullable|image|max:5000'
         ]);
         
         $invoiceNumber = 'invoice_'.time();
@@ -94,17 +97,10 @@ class UserTransactionController extends Controller
             'payment_url' => ''
         ]);
 
-        // Konfigurasi midtrans
-        // Config::$serverKey = config('services.midtrans.serverKey');
-        // Config::$isProduction = config('services.midtrans.isProduction');
-        // Config::$isSanitized = config('services.midtrans.isSanitized');
-        // Config::$is3ds = config('services.midtrans.is3ds');
-
         $transaction = UserTransaction::with(['talent','user'])->find($transaction->id);
         $user = User::where('id', $transaction['talent']['user_id'])->first();
         $transaction['talent']['talent_name'] = $user->name;
         $transaction['talent']['talent_email'] = $user->email;
-            // return ResponseFormatter::success($transaction,'Transaksi berhasil');
 
             $params = [
                 'external_id' => $invoiceNumber,
@@ -124,22 +120,20 @@ class UserTransactionController extends Controller
                 ],
             ];
 
-            
 
-        // $midtrans = array(
-        //     'transaction_details' => array(
-        //         'order_id' =>  $transaction->id,
-        //         'gross_amount' => (int) $transaction->total,
-        //     ),
-        //     'customer_details' => array(
-        //         'first_name'    => $transaction->user->name,
-        //         'email'         => $transaction->user->email
-        //     ),
-        //     'enabled_payments' => array('gopay','bank_transfer'),
-        //     'vtweb' => array()
-        // );
 
         try {
+            if ($request->file('video_file')) {
+                $videoFile = $request->video_file->store('assets/user', 'public');
+                $transaction->video_file = $videoFile;
+            }
+    
+            if ($request->file('video_thumbnail')) {
+                $videoThumbnail = $request->video_thumbnail->store('assets/user', 'public');
+                $transaction->video_thumbnail = $videoThumbnail;
+    
+            }
+
             $createInvoice = \Xendit\Invoice::create($params);
             // var_dump($createInvoice);
 
@@ -156,17 +150,11 @@ class UserTransactionController extends Controller
 
             return ResponseFormatter::success($transaction,'Transaksi berhasil');
 
-            // Ambil halaman payment midtrans
-            // $paymentUrl = Snap::createTransaction($midtrans)->redirect_url;
-
-            // $transaction->payment_url = $paymentUrl;
-            // $transaction->save();
-
-            // // Redirect ke halaman midtrans
-            // return ResponseFormatter::success($transaction,'Transaksi berhasil');
         }
         catch (Exception $e) {
             return ResponseFormatter::error($e->getMessage(),'Transaksi Gagal');
         }
     }
+
+    
 }

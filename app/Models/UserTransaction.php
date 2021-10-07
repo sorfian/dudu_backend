@@ -26,6 +26,8 @@ class UserTransaction extends Model
         'detail',
         'external_id',
         'invoice_url',
+        'video_thumbnail',
+        'video_file',
     ];
 
     public function user(){
