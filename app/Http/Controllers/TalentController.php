@@ -52,8 +52,10 @@ class TalentController extends Controller
      */
     public function store(TalentRequest $request)
     {
+        $user = User::where('id', $request->user_id)->first();
         $data = $request->all();
 
+        $data['talent_name'] = $user->name;
         $data['picture_path'] = $request->file('picture_path')->store('assets/talents', 'public');
 
         Talent::create($data);

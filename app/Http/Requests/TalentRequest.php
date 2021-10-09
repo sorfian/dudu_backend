@@ -26,6 +26,7 @@ class TalentRequest extends FormRequest
         return [
             
                 'user_id' => 'required|integer',
+                'talent_name' => 'nullable|string',
                 'type' => 'required|max:255|string',
                 'category' => 'required|max:255|string',
                 'rate' => 'required|numeric|min:0',
