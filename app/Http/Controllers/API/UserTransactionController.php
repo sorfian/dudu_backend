@@ -100,7 +100,6 @@ class UserTransactionController extends Controller
 
         $transaction = UserTransaction::with(['talent','user'])->find($transaction->id);
         $user = User::where('id', $transaction['talent']['user_id'])->first();
-        $transaction['talent']['talent_name'] = $user->name;
         $transaction['talent']['talent_email'] = $user->email;
 
             $params = [
