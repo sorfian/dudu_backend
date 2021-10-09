@@ -24,6 +24,9 @@ class UserTransactionController extends Controller
 
         if ($id) {
             $userTransaction = UserTransaction::with(['talent', 'user', 'order'])->find($id);
+            $user = User::where('id', $userTransaction['talent']['user_id'])->first();
+        $userTransaction['talent']['talent_name'] = $user->name;
+        $userTransaction['talent']['talent_email'] = $user->email;
 
             if ($userTransaction) {
                 return ResponseFormatter::success(
@@ -118,8 +121,6 @@ class UserTransactionController extends Controller
                 ],
             ];
 
-
-
         try {
 
             $createInvoice = \Xendit\Invoice::create($params);
@@ -154,7 +155,7 @@ class UserTransactionController extends Controller
         if ($validator->fails()) {
             return ResponseFormatter::error([
                 'error' => $validator->errors()
-            ], 'Update photo fails', 401);
+            ], 'Upload video fails', 401);
         }
 
         $transaction = UserTransaction::where('external_id', $request->external_id)->first();
