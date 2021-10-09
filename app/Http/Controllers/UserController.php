@@ -179,4 +179,17 @@ class UserController extends Controller
             'newuser' => $newUser,
         ]);
     }
+
+    public function approveUser($id)
+    {
+        $user = User::where('id', $id)->first();
+        $users = User::where('is_active', 0)->get();
+        $newUser = User::where('is_active', 0)->get();
+        $user->is_active = 1;
+        $user->save();
+        return redirect()->route('users.new-requests', [
+            'user' => $users,
+            'newuser' => $newUser,
+        ]);
+    }
 }

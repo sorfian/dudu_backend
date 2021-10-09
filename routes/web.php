@@ -32,6 +32,7 @@ Route::prefix('dashboard')
         Route::get('users/talents', [UserController::class, 'indexOfTalents'])->name('users.talents');
         Route::get('users/partners', [UserController::class, 'indexOfPartners'])->name('users.partners');
         Route::get('users/new-requests', [UserController::class, 'newAccountRequest'])->name('users.new-requests');
+        Route::put('users/approve/{id}', [UserController::class, 'approveUser'])->name('users.approve');
         Route::resource('users', UserController::class);
 
         // Route::get('transactions/{id}/status/{status}', [TransactionController::class, 'changeStatus'])

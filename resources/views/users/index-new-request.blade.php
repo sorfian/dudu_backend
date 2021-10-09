@@ -238,6 +238,17 @@
                                         
                                     </div>
                                     <!--end::Menu item-->
+                                    <!--begin::Menu item-->
+                                    <div class="menu-item px-3">
+                                        <form action="{{ route('users.approve', $item->id) }}" method="post">
+                                            @method('PUT')
+                                            @csrf
+                                            <a href="#" class="menu-link px-3" onclick="event.preventDefault();
+                                                this.closest('form').submit();">Approve</a>
+                                        </form>
+                                        
+                                    </div>
+                                    <!--end::Menu item-->
                                     
                                 </div>
                                 <!--end::Menu-->
