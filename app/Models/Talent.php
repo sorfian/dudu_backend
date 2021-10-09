@@ -13,6 +13,7 @@ class Talent extends Model
 
     protected $fillable = [
         'user_id',
+        'talent_name',
         'type',
         'category',
         'rate',
