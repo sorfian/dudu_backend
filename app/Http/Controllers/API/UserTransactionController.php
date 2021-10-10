@@ -224,6 +224,7 @@ class UserTransactionController extends Controller
             if ($request->file('video_file_talent')) {
                 $videoFileTalent = $request->video_file_talent->store('assets/user', 'public');
                 $transaction->video_file_talent = $videoFileTalent;
+                $transaction->status = $request->status;
             }
     
             if ($request->file('video_thumbnail_talent')) {
