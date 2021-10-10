@@ -48,7 +48,10 @@ class UserTransactionController extends Controller
 
 
         if ($talent_id) {
-            $userTransaction = UserTransaction::with(['talent', 'user', 'order'])->where('talent_id', $talent->id);
+            if ($talent) {
+                
+                $userTransaction = UserTransaction::with(['talent', 'user', 'order'])->where('talent_id', $talent->id);
+            }
         }
         if ($status) {
             $userTransaction->where('status', $status);
