@@ -197,7 +197,9 @@ class UserTransactionController extends Controller
         $validator = Validator::make($request->all(), [
             'external_id' => 'required|string',
             'video_file' => 'nullable|file',
-            'video_thumbnail' => 'nullable|image|max:5000'
+            'video_thumbnail' => 'nullable|image|max:5000',
+            'video_file_talent' => 'nullable|file',
+            'video_thumbnail_talent' => 'nullable|image|max:5000'
         ]);
 
         if ($validator->fails()) {
@@ -219,10 +221,20 @@ class UserTransactionController extends Controller
                 $transaction->video_thumbnail = $videoThumbnail;
     
             }
+            if ($request->file('video_file_talent')) {
+                $videoFileTalent = $request->video_file_talent->store('assets/user', 'public');
+                $transaction->video_file_talent = $videoFileTalent;
+            }
+    
+            if ($request->file('video_thumbnail_talent')) {
+                $videoThumbnailTalent = $request->video_thumbnail_talent->store('assets/user', 'public');
+                $transaction->video_thumbnail_talent = $videoThumbnailTalent;
+    
+            }
     
             $transaction->update();
     
-            return ResponseFormatter::success([$videoFile, $videoThumbnail], 'File successfully uploaded');
+            return ResponseFormatter::success([$videoFile, $videoThumbnail, $videoFileTalent, $videoThumbnailTalent], 'File successfully uploaded');
         } catch (Exception $e) {
             return ResponseFormatter::error($e->getMessage(),'Upload video Gagal');
         }
