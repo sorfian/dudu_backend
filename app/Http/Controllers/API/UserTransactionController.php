@@ -234,7 +234,7 @@ class UserTransactionController extends Controller
     
             $transaction->update();
     
-            return ResponseFormatter::success([$videoFile ?? null, $videoThumbnail ?? null, $videoFileTalent ?? "", $videoThumbnailTalent ?? ""], 'File successfully uploaded');
+            return ResponseFormatter::success([$videoFile ?? null, $videoThumbnail ?? null, $videoFileTalent ?? null, $videoThumbnailTalent ?? null], 'File successfully uploaded');
         } catch (Exception $e) {
             return ResponseFormatter::error($e->getMessage(),'Upload video Gagal');
         }
