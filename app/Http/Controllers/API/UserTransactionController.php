@@ -44,6 +44,52 @@ class UserTransactionController extends Controller
         } 
         
         $userTransaction = UserTransaction::with(['talent', 'user', 'order'])->where('user_id', Auth::user()->id);
+        $talent = Talent::where('user_id', Auth::user()->id)->first();
+
+
+        if ($talent_id) {
+            $userTransaction = UserTransaction::with(['talent', 'user', 'order'])->where('talent_id', $talent->id);
+        }
+        if ($status) {
+            $userTransaction->where('status', $status);
+        }
+
+        return ResponseFormatter::success(
+            $userTransaction->paginate($limit),
+            'Data list transaksi user berhasil diambil'
+        );
+        
+    }
+    public function talentTransactions(Request $request) {
+        $id = $request->input('id');
+        $limit = $request->input('limit', 6);
+        $talent_id = $request->input('talent_id');
+        $status = $request->input('status');
+
+        if ($id) {
+            $userTransaction = UserTransaction::with(['talent', 'user', 'order'])->find($id);
+            $user = User::where('id', $userTransaction['talent']['user_id'])->first();
+        $userTransaction['talent']['talent_name'] = $user->name;
+        $userTransaction['talent']['talent_email'] = $user->email;
+
+            if ($userTransaction) {
+                return ResponseFormatter::success(
+                    $userTransaction,
+                    'Data transaksi user berhasil diambil'
+                );
+            } else {
+                return ResponseFormatter::error(
+                    null,
+                    'Data transaksi user tidak ada',
+                    404
+                );
+            }
+            
+        } 
+
+        $talent = Talent::where('user_id', Auth::user()->id)->first();
+        
+        $userTransaction = UserTransaction::with(['talent', 'user', 'order'])->where('user_id', Auth::user()->id);
 
         if ($talent_id) {
             $userTransaction->where('talent_id', $talent_id);
