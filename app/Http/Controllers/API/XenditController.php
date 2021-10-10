@@ -20,7 +20,7 @@ class XenditController extends Controller
         try {
             $transaction = UserTransaction::where('external_id', $externalId)->where('invoice_number', $xenditId)->first();
             if ($status == 'PAID') {
-                $transaction->status = 'SUCCESS';
+                $transaction->status = 'PAID';
             } else if ($status == 'EXPIRED') {
                 $transaction->status == 'CANCELLED';
             } else {
